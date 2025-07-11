@@ -27,6 +27,17 @@
       position: relative;
     }
 
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 2s ease-in-out forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
     img {
       max-width: 100vw;
       max-height: 100vh;
@@ -91,7 +102,7 @@
   </style>
 </head>
 <body>
-  <img src="yandhi.gif" alt="YANDHI"
+  <img class="fade-in" src="yandhi.gif" alt="YANDHI"
        oncontextmenu="return false"
        draggable="false" />
 
@@ -100,7 +111,7 @@
   <div class="bubble-wrapper">
     <div class="bubble-group" onclick="window.location.href='https://www.youtube.com/@Kanye-unreleased';">
       <div class="imessage-bubble">
-        Go to HOW? Archive
+        YANDHI 9 29 18
       </div>
       <svg class="tail-svg" viewBox="0 0 512 512">
         <polygon points="0,0 512,256 0,512" />
