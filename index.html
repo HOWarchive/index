@@ -6,7 +6,7 @@
   <title>KanYeWest</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
 
-  <!-- ✅ Open Graph (SNS 썸네일용) -->
+  <!-- ✅ Open Graph (SNS 미리보기용) -->
   <meta property="og:title" content="YE" />
   <meta property="og:description" content="Wake Up Mr. West" />
   <meta property="og:image" content="https://www.kanyewest.co.kr/preview.jpg" />
@@ -24,6 +24,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      position: relative;
     }
 
     img {
@@ -35,11 +36,18 @@
       -webkit-user-drag: none;
     }
 
-    /* 💬 iMessage-style 말풍선 */
+    /* 💬 말풍선 위치 */
+    .bubble-wrapper {
+      position: absolute;
+      bottom: 30px;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
     .imessage-bubble {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
       background-color: #007aff;
       color: white;
       padding: 12px 18px;
@@ -47,28 +55,34 @@
       font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
       border-radius: 20px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-      cursor: pointer;
       user-select: none;
       transition: all 0.15s ease;
-      transform-origin: right bottom;
-      z-index: 9999;
+      transform-origin: bottom center;
+      pointer-events: auto;
       position: relative;
+      display: inline-block;
+      cursor: pointer;
     }
 
-    .imessage-bubble::after {
-      content: "";
+    .imessage-bubble .tail {
       position: absolute;
-      right: -8px;
-      bottom: 10px;
-      width: 20px;
-      height: 20px;
+      bottom: -8px;
+      right: 20px;
+      width: 14px;
+      height: 14px;
       background-color: #007aff;
-      clip-path: polygon(0 0, 100% 50%, 0 100%);
+      transform: rotate(45deg);
+      border-radius: 0 0 3px 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      transition: transform 0.15s ease;
     }
 
     .imessage-bubble:active {
       transform: scale(0.95);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .imessage-bubble:active .tail {
+      transform: rotate(45deg) scale(0.95);
     }
 
     .imessage-bubble:hover {
@@ -82,25 +96,28 @@
        oncontextmenu="return false;"
        draggable="false" />
 
-  <!-- 🔊 오디오 플레이어 -->
+  <!-- 🔊 오디오 -->
   <audio id="bgm" autoplay loop></audio>
 
-  <!-- 💬 말풍선 버튼 -->
-  <div class="imessage-bubble" onclick="window.location.href='https://www.youtube.com/@Kanye-unreleased';">
-    Go To HOW? Archive
+  <!-- 💬 말풍선 -->
+  <div class="bubble-wrapper">
+    <div class="imessage-bubble" onclick="window.location.href='https://www.youtube.com/@Kanye-unreleased';">
+      Go To HOW? Archive
+      <span class="tail"></span>
+    </div>
   </div>
 
   <script>
-    // 🎵 랜덤 BGM 선택
-    const playlist = ["song1.mp3", "song1.mp3", "song1.mp3"];
+    // 🎵 BGM 랜덤 선택
+    const playlist = ["song1.mp3", "song2.mp3", "song3.mp3"];
     const bgm = document.getElementById("bgm");
     bgm.src = playlist[Math.floor(Math.random() * playlist.length)];
     bgm.load();
 
-    // 🔊 초기 재생 시도 (차단되면 클릭 유도)
+    // 🔊 자동 재생 시도
     function tryAutoplay() {
       bgm.play().catch(() => {
-        // 재생 차단된 경우
+        // 차단될 경우 클릭 시 재생
       });
     }
     tryAutoplay();
@@ -114,7 +131,7 @@
       }
     });
 
-    // 📏 WebView 대응 100vh 보정
+    // 📏 WebView 대응 (100vh 문제 해결)
     function setRealHeight() {
       document.body.style.height = `${window.innerHeight}px`;
     }
