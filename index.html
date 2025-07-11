@@ -46,6 +46,24 @@
       z-index: 9999;
     }
 
+    .bubble-group {
+      position: relative;
+      pointer-events: auto;
+      transition: transform 0.15s ease, filter 0.15s ease;
+      display: inline-block;
+      z-index: 1;
+      cursor: pointer;
+    }
+
+    .bubble-group:hover {
+      filter: brightness(0.85);
+    }
+
+    .bubble-group:active {
+      transform: scale(0.95);
+      filter: brightness(0.85);
+    }
+
     .imessage-bubble {
       background-color: #1084ff;
       color: white;
@@ -55,22 +73,7 @@
       border-radius: 18px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
       user-select: none;
-      transition: transform 0.15s ease, background-color 0.15s ease;
-      transform-origin: bottom right;
-      pointer-events: auto;
-      position: relative;
-      display: inline-block;
-      cursor: pointer;
-      z-index: 1;
-    }
-
-    .imessage-bubble:active {
-      transform: scale(0.95);
-      background-color: #0b6fd1;
-    }
-
-    .imessage-bubble:hover {
-      background-color: #0b6fd1;
+      pointer-events: none;
     }
 
     .tail-behind {
@@ -83,8 +86,8 @@
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
-      z-index: -1;
       pointer-events: none;
+      z-index: -1;
     }
   </style>
 </head>
@@ -96,8 +99,10 @@
   <audio id="bgm" preload="auto"></audio>
 
   <div class="bubble-wrapper">
-    <div class="imessage-bubble" onclick="window.location.href='https://www.youtube.com/@Kanye-unreleased';">
-      Go to HOW? Archive
+    <div class="bubble-group" onclick="window.location.href='https://www.youtube.com/@Kanye-unreleased';">
+      <div class="imessage-bubble">
+        Go to HOW? Archive
+      </div>
       <span class="tail-behind"></span>
     </div>
   </div>
