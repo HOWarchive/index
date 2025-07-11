@@ -1,26 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>YANDHI</title>
-    <style>
-      html, body {
-        margin: 0;
-        padding: 0;
-        background-color: black;
-        height: 100%;
-        width: 100%;
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KanYeWest</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+  <!-- ✅ Open Graph (SNS 썸네일용) -->
+  <meta property="og:title" content="YE" />
+  <meta property="og:description" content="Wake Up Mr. West" />
+  <meta property="og:image" content="https://www.kanyewest.co.kr/preview.jpg" />
+  <meta property="og:url" content="https://www.kanyewest.co.kr" />
+  <meta property="og:type" content="website" />
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #fbfbfb;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    img {
+      max-width: 100vw;
+      max-height: 100vh;
+      object-fit: contain;
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    /* 💬 iMessage-style 말풍선 */
+    .imessage-bubble {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #007aff;
+      color: white;
+      padding: 12px 18px;
+      font-size: 14px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease;
+      transform-origin: right bottom;
+      z-index: 9999;
+      position: relative;
+    }
+
+    .imessage-bubble::after {
+      content: "";
+      position: absolute;
+      right: -8px;
+      bottom: 10px;
+      width: 20px;
+      height: 20px;
+      background-color: #007aff;
+      clip-path: polygon(0 0, 100% 50%, 0 100%);
+    }
+
+    .imessage-bubble:active {
+      transform: scale(0.95);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .imessage-bubble:hover {
+      background-color: #0060d0;
+    }
+  </style>
+</head>
+<body>
+  <!-- 🎬 메인 이미지 -->
+  <img src="yandhi.gif" alt="YANDHI"
+       oncontextmenu="return false;"
+       draggable="false" />
+
+  <!-- 🔊 오디오 플레이어 -->
+  <audio id="bgm" autoplay loop></audio>
+
+  <!-- 💬 말풍선 버튼 -->
+  <div class="imessage-bubble" onclick="window.location.href='https://www.youtube.com/@Kanye-unreleased';">
+    Go To HOW? Archive
+  </div>
+
+  <script>
+    // 🎵 랜덤 BGM 선택
+    const playlist = ["song1.mp3", "song1.mp3", "song1.mp3"];
+    const bgm = document.getElementById("bgm");
+    bgm.src = playlist[Math.floor(Math.random() * playlist.length)];
+    bgm.load();
+
+    // 🔊 초기 재생 시도 (차단되면 클릭 유도)
+    function tryAutoplay() {
+      bgm.play().catch(() => {
+        // 재생 차단된 경우
+      });
+    }
+    tryAutoplay();
+
+    // 🖱️ 클릭 시 재생/정지 토글
+    document.addEventListener("click", () => {
+      if (bgm.paused) {
+        bgm.play();
+      } else {
+        bgm.pause();
       }
-      img {
-        display: block;
-        margin: auto;
-        max-width: 100vw;
-        max-height: 100vh;
-        object-fit: contain;
-      }
-    </style>
-  </head>
-  <body>
-    <img src="yandhi.gif" alt="YANDHI">
-  </body>
+    });
+
+    // 📏 WebView 대응 100vh 보정
+    function setRealHeight() {
+      document.body.style.height = `${window.innerHeight}px`;
+    }
+    setRealHeight();
+    window.addEventListener("resize", setRealHeight);
+  </script>
+</body>
 </html>
