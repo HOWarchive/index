@@ -49,23 +49,21 @@
     .bubble-group {
       position: relative;
       pointer-events: auto;
-      transition: transform 0.15s ease, filter 0.15s ease;
+      transition: transform 0.15s ease;
       display: inline-block;
       z-index: 1;
       cursor: pointer;
+      color: #1084ff;
     }
 
-    .bubble-group:hover {
-      filter: brightness(0.85);
-    }
-
+    .bubble-group:hover,
     .bubble-group:active {
-      transform: scale(0.95);
       filter: brightness(0.85);
+      transform: scale(0.95);
     }
 
     .imessage-bubble {
-      background-color: #1084ff;
+      background-color: currentColor;
       color: white;
       padding: 12px 18px;
       font-size: 14px;
@@ -76,18 +74,19 @@
       pointer-events: none;
     }
 
-    .tail-behind {
+    .tail-svg {
       position: absolute;
-      bottom: -6px;
-      right: -4px;
-      width: 22px;
-      height: 22px;
-      background-image: url('tail.png');
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
+      bottom: -5px;
+      right: -10px;
+      width: 18px;
+      height: 18px;
+      z-index: 0;
       pointer-events: none;
-      z-index: -1;
+      color: inherit;
+    }
+
+    .tail-svg polygon {
+      fill: currentColor;
     }
   </style>
 </head>
@@ -103,7 +102,9 @@
       <div class="imessage-bubble">
         Go to HOW? Archive
       </div>
-      <span class="tail-behind"></span>
+      <svg class="tail-svg" viewBox="0 0 512 512">
+        <polygon points="0,0 512,256 0,512" />
+      </svg>
     </div>
   </div>
 
